@@ -1,61 +1,54 @@
 package com.amigos.areac.student;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
+import java.time.Period;
+
 @Entity
-@Table
+@Table(name = "student")
 public class Student {
 
     @Id
     @SequenceGenerator(
-            name="student_sequence",
+            name = "student_sequence",
             sequenceName = "student_sequence",
             allocationSize = 1
     )
-
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator ="student_sequence"
+            generator = "student_sequence"
     )
-
     private Long id;
+
     private String name;
     private String email;
     private Integer phone;
     private LocalDate dob;
-    private  Integer age;
 
-    public Student() {
+    @Transient
+    private Integer age;
 
-    }
+    // No-argument constructor
+    public Student() {}
 
-    public Student(
-            Long id, String name,
-            String email, Integer phone,
-            LocalDate dob, Integer age)
-    {
+    // Constructor with all fields
+    public Student(Long id, String name, String email, Integer phone, LocalDate dob) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.dob = dob;
-        this.age = age;
     }
 
-    public Student(String name,
-                   String email,
-                   Integer phone,
-                   LocalDate dob,
-                   Integer age)
-    {
+    // Constructor without ID (for creating a new student)
+    public Student(String name, String email, Integer phone, LocalDate dob) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.dob = dob;
-        this.age = age;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -96,12 +89,9 @@ public class Student {
         this.dob = dob;
     }
 
+    // Age is derived from DOB, so no setter is needed
     public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
     @Override
@@ -112,9 +102,7 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", phone=" + phone +
                 ", dob=" + dob +
-                ", age=" + age +
+                ", age=" + getAge() + // dynamically calculate age
                 '}';
     }
-
 }
-

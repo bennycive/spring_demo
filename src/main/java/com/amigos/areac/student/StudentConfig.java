@@ -15,20 +15,19 @@ public class StudentConfig {
     CommandLineRunner commandLineRunner(StudentRepostory repostory){
          return  args -> {
              Student benjamini = new Student(
-
                      "Benjamini",
                      "benny@gmail.com",
                      684573370,
-                     LocalDate.of(2000, Month.JANUARY, 5),
-                     24
+                      LocalDate.of(2000, Month.JANUARY, 5)
+
              );
              Student mussa = new Student(
 
                      "Mussa",
                      "mussa@gmail.com",
                      684573376,
-                     LocalDate.of(2000, Month.JANUARY, 5),
-                     23
+                     LocalDate.of(2000, Month.JANUARY, 5)
+
              );
 
              Student joshua = new Student(
@@ -36,18 +35,16 @@ public class StudentConfig {
                      "Joshua",
                      "joshua@gmail.com",
                      684573375,
-                     LocalDate.of(2000, Month.JANUARY, 5),
-                     31
-             );
+                     LocalDate.of(2000, Month.JANUARY, 5)
 
+             );
              Student kavula = new Student(
                      "kavula",
                      "kavula@gmail.com",
                      684573311,
-                     LocalDate.of(2000, Month.JANUARY, 5),
-                     21
-             );
+                     LocalDate.of(2000, Month.JANUARY, 5)
 
+             );
              repostory.saveAll(
                      List.of(benjamini ,mussa, joshua,kavula)
              );
